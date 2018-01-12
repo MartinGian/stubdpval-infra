@@ -1,0 +1,13 @@
+version: '3'
+services:
+  elasticsearch:
+    image: elasticsearch
+  application:
+    image: stubdpval
+    environment:
+      NODE_ENV: LQA
+    ports:
+      - 3005:3005
+volumes:
+  esdata1:
+    driver: local

@@ -1,0 +1,28 @@
+version: '3'
+services:
+  elasticsearch:
+    image: elasticsearch
+    container_name: elasticsearch
+    environment:
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - esdata1:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+  application:
+    image: stubdpval
+    container_name: app
+    environment:
+      NODE_ENV: PROD
+    ports:
+      - 80:80
+    depends_on:
+      - elasticsearch
+volumes:
+  esdata1:
+    driver: local
