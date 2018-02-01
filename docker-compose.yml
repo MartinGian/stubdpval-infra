@@ -14,15 +14,18 @@ services:
       - esdata1:/usr/share/elasticsearch/data
     ports:
       - 9200:9200
+    network_mode: "host"
   application:
-    image: martingiannechini/stubdpval
+    image: martingiannechini/stubdpval:0.5
     container_name: app
     environment:
-      NODE_ENV: PROD
+      NODE_ENV: PROD_HOST
     ports:
       - 80:80
     depends_on:
       - elasticsearch
+    network_mode: "host"
 volumes:
   esdata1:
     driver: local
+
